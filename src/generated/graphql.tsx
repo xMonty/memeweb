@@ -77,6 +77,11 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Maybe<Array<{ __typename?: 'FieldError', message: string }>>, user?: Maybe<{ __typename?: 'User', id: number }> } };
 
+export type AllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, name: string, email: string }> };
+
 
 export const LoginDocument = gql`
     mutation Login($loginPassword: String!, $loginEmail: String!) {
@@ -115,4 +120,17 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const AllUsersDocument = gql`
+    query allUsers {
+  users {
+    id
+    name
+    email
+  }
+}
+    `;
+
+export function useAllUsersQuery(options: Omit<Urql.UseQueryArgs<AllUsersQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<AllUsersQuery>({ query: AllUsersDocument, ...options });
 };

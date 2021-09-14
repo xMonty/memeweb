@@ -1,22 +1,17 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-export enum ButtonType {
-  primary
-}
-
-interface Props {
-  type: ButtonType;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: string;
   text: string,
-  onClick: () => void;
 }
 
-const Button: React.FC<Props> = ({ 
-    type,
+const Button: React.FC<ButtonProps> = ({ 
+    variant,
     text,
-    onClick, 
+    ...props
   }) => { 
   return (
-    <button onClick={onClick} className="px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none">
+    <button {...props} className="px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none">
       {text}
     </button>
   );

@@ -1,7 +1,10 @@
-import { useLoginMutation } from "../src/generated/graphql";
+import { useAllUsersQuery } from "../src/generated/graphql"
 
 export default function Home() {
-  const [, register] = useLoginMutation();
+  const [ { data, error, fetching, stale } , loadUsers] = useAllUsersQuery();
+	
+	console.log("data", data);
+	console.log("error", error);
 
   return (
     

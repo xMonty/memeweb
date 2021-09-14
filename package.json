@@ -7,6 +7,7 @@
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "graphql": "^15.5.3",
     "next": "latest",
     "react": "^17.0.2",
@@ -14,7 +15,7 @@
     "urql": "^2.0.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "@graphql-codegen/typescript-operations": "2.1.4",
     "@graphql-codegen/typescript-urql": "^3.2.0",
