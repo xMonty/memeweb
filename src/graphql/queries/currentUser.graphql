@@ -1,0 +1,12 @@
+query currentUser {
+  currentUser {
+    user {
+      id
+      name
+      email
+    }
+    errors {
+      message
+    }
+  }
+}

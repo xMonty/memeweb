@@ -1,12 +1,24 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import { useRouter } from "next/dist/client/router";
+import React, { useEffect } from "react";
 import Controls from "../src/components/controls/Controls";
 import { useLoginMutation } from "../src/generated/graphql";
 import { setAccessToken } from "../src/utils/token";
 
 
 const Login: React.FC = ({}) => {
-  const [{ fetching }, login] = useLoginMutation();
+  const [{ fetching, data }, login] = useLoginMutation();
+  const history = useRouter();
+
+  const onLogin = async (values: any) => {
+    const response = await login(values);
+    if (response.data?.login.errors) {
+      console.error(response.data.login.errors[0].message);
+    } else {
+      setAccessToken(response.data?.login.accessToken ?? '');
+      history.push('/');
+    }
+  }
 
   return (
     <div className="flex-col bg-gray-500 min-h-screen pt-60">
@@ -31,12 +43,7 @@ const Login: React.FC = ({}) => {
             }}
             onSubmit={async (values, actions) => {
               console.log(values);
-              const response = await login(values);
-              if (response.data?.login.errors) {
-                console.error(response.data.login.errors[0].message);
-              } else {
-                setAccessToken(response.data?.login.accessToken ?? '');
-              }
+              await onLogin(values);
               actions.resetForm();
             }}
           >
